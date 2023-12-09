@@ -1,0 +1,31 @@
+1> We need to create some excel files
+2> openpyxl (excel file) pip
+3> Visual Studio > execute
+
+(for your conevenience i have added the excel files as well with the source code in my github repo)
+
+import os
+import openpyxl
+
+folder='C:\\Users\\91704\\Desktop\\Excel Python Project'
+output_file='C:\\Users\91704\\Desktop\\Excel Python Project\\merge master.xlsx'
+
+#file creation and path set
+output_workbook=openpyxl.Workbook()
+output_sheet=output_workbook.active
+output_sheet.title='merge master'
+
+#cells from where the data us to be fethed
+cells=['B2', 'B3', 'B4', 'E5', 'E6', 'E7', 'E8', 'E9', 'E10', 'E11', 'E12']
+
+#the program logic
+
+for filename in os.listdir(folder):
+    if filename.endswith('.xlsx'):
+        file=os.path.join(folder,filename)
+        workbook=openpyxl.load_workbook(file)
+        values=[workbook.active[cell].value for cell in cells]
+
+        output_sheet.append(values)
+
+output_workbook.save(output_file)
